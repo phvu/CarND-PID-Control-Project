@@ -1,6 +1,18 @@
 # CarND-Controls-PID
 Self-Driving Car Engineer Nanodegree Program
 
+## PID controllers and twiddle
+
+- We use two PID controllers for steering angle and throttle.
+    - The PID controller for steering angle is trivial
+    - The PID controller for throttle employs some heuristics, which can be seen in `main.cpp:73`
+    
+- Twiddle is implemented in `twiddle.h`, and can be enabled separately for each of the controller.
+
+    I tuned each controller in turn. First the steer controller, then the throttle controller.
+    
+    The tuning process involves switching the flags on lines `36-38` of `main.cpp`. 
+    
 ---
 
 ## Dependencies

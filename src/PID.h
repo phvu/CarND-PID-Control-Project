@@ -1,6 +1,9 @@
 #ifndef PID_H
 #define PID_H
 
+#include <string.h>
+#include "twiddle.h"
+
 class PID {
 public:
   /*
@@ -10,17 +13,15 @@ public:
   double i_error;
   double d_error;
 
-  /*
-  * Coefficients
-  */ 
-  double Kp;
-  double Ki;
-  double Kd;
+  bool twiddle_enabled;
+  Twiddle<3> twiddle;
+  int step;
+  double twiddle_error;
 
   /*
   * Constructor
   */
-  PID();
+  PID(bool enable_twiddle, std::string controller_name);
 
   /*
   * Destructor.
@@ -30,7 +31,7 @@ public:
   /*
   * Initialize PID.
   */
-  void Init(double Kp, double Ki, double Kd);
+  void Init(int twiddle_every, double Kp, double Ki, double Kd, double dKp, double dKi, double dKd);
 
   /*
   * Update the PID error variables given cross track error.
@@ -41,6 +42,11 @@ public:
   * Calculate the total PID error.
   */
   double TotalError();
+
+  /**
+   * Reset the controller
+   */
+  void reset();
 };
 
 #endif /* PID_H */
